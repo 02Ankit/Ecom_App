@@ -1,26 +1,39 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router'; 
-const Search = ({ history }) => {
-	let navigate = useNavigate();
-	const [keyword, setKeyword] = useState('');
 
-	const searchHandler = (e) => {
+const Search = ({history}) => {
 
-		e.preventDefault()
+    const [keyword, setKeyword] = useState('');
+    const searchHandler = (e) => {
+        e.preventDefault()
+        if(keyword.trim()){
 
-		if(keyword.trim()){
-			navigate(`/search/${keyword}`)
-		} else {
-			navigate('/')
-		}
-}
+            history.push(`/search/${keyword}`)
 
+        } else{
+            history.push('/')
+        }
+    }
 
-	return (
-	<form onSubmit={ searchHandler }>
+    return (
 
-	</form>
-		)
+        <form onSubmit={searchHandler} >
+            <div className="input-group">
+                <input
+                    type="text"
+                    id="search_field"
+                    className="form-control"
+                    placeholder="Enter Product Name ..."
+                    onChange={(e) => setKeyword(e.target.value)}
+                />
+                <div className="input-group-append">
+                    <button id="search_btn" className="btn">
+                        <i className="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    )
 }
 
 export default Search

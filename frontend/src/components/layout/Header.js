@@ -1,12 +1,9 @@
 
-import React, { Fragment } from 'react'
-
+import React, { Fragment} from 'react'
 import { Routes, Route } from 'react-router-dom'
-
 import Search from './Search'
 
 import '../../App.css'
-
 const Header = () => {
       return(
 
@@ -19,23 +16,9 @@ const Header = () => {
                 </div>
 
                 <div className="col-12 col-md-6 mt-2 mt-md-0">
-                <div className = "input_group">
-                    	<input 
-                    		type = "text"
-                    		id="search_field"
-                    		className="form-control"
-                    		placeholder="Enter Product Name..."
-                    		
-                    	/>
-
-                    	<div className = "input_group-append">
-                    		<button
-                    			id="search_btn"
-                    			className="btn">
-                    			<i className="fa fa-search" aria-hidden = "true"></i>
-                    		</button>
-                    	</div>
-                    </div>
+                  <Routes>
+                      <Route render={({ history }) => <Search history={history}/>}/>
+                      </Routes>
                 </div>
 
 

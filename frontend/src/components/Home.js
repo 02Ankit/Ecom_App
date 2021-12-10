@@ -6,17 +6,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../actions/productActions'
 import Loader from './layout/Loader';
 import {useAlert} from 'react-alert';
-
+import { useParams } from 'react-router';
 
 
 const Home = () => {
 const [currentPage, setCurrentPage] = useState(1);
 const alert = useAlert();
 const dispatch = useDispatch();
-
+const params = useParams();
 const {loading, products, error, productCount, resPerPage} = useSelector(state => state.products)
 
-
+const keyword = params.keyword
 
 // const keyword =  { params }
 
@@ -33,7 +33,7 @@ useEffect(() => {
 
   }
 
-  dispatch(getProducts( currentPage));
+  dispatch(getProducts(keyword, currentPage));
 
 }, [dispatch, alert, error, currentPage]) //dependencies
 

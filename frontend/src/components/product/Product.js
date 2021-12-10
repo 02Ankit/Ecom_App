@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { Link } from 'react-router-dom'// if you use link page will be not refresh
 const Product = ({product}) => {
@@ -21,7 +22,7 @@ const Product = ({product}) => {
                 <span id="no_of_reviews">({product.numofReviews}Reviews)</span>
               </div>
               <p className="card-text">{product.price}</p>
-              <Link to="{`/product/${product._id}`}" id="view_btn" className="btn btn-block">View Details</Link>
+              <Link to={`/product/${product._id}`} id="view_btn" className="btn btn-block">View Details</Link>
             </div>
           </div>
         </div>
