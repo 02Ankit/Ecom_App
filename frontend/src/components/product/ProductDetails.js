@@ -1,12 +1,12 @@
   
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { Carousel } from 'react-bootstrap'
 import Loader from '../layout/Loader'
 import MetaData from '../layout/MetaData'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { getProductDetails, newReview, clearErrors } from '../../actions/productActions'
+import { getProductDetails, clearErrors } from '../../actions/productActions'
 
 
 const ProductDetails = () => {
