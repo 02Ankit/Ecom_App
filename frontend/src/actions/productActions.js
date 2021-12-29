@@ -10,7 +10,7 @@ import {
 	CLEAR_ERRORS
 } from '../constants/productConstants'
 
-export const getProducts = (keyword = '', currentPage = 1, price) => async (dispatch) => {
+export const getProducts = (keyword = '', currentPage = 1, price, category, rating = 0  ) => async (dispatch) => {
 
 	try{
 	
@@ -20,10 +20,14 @@ export const getProducts = (keyword = '', currentPage = 1, price) => async (disp
 		dispatch({ type: ALL_PRODUCTS_REQUEST })
 		//step-3
 		//Second its get data from backend 
-		let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=price[0]`
+		let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&ratings[gte]=${rating}`
+        // &price[lte]=${price[1]}&price[gte]=${price[0]}
+		if ( category ) {
+			link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&category=${category}&ratings[gte]=${rating}`
+        }
 
 		const { data } = await axios.get(link);
-
+		console.warn({data})
 		
 		//step-4 
 		//after get data its dispatch ALL_PRODUCTS_SUCCESS
