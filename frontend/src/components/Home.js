@@ -82,7 +82,7 @@ useEffect(() => {
             <section id="products" className="container mt-5">
               <div className="row">
               
-              {keyword ?(
+              {keyword ? (
                 <Fragment>
                   <div className="co;-6 col-md-3 mt-5 mb-5">
                     <div className="px-5">
@@ -174,7 +174,7 @@ useEffect(() => {
               ) : (
                 products.map(product => (
 
-                  <Product key={product._id} product={product}col={3} />
+                  <Product key={product._id} product={product} col={3} />
                 ))
               )}
 

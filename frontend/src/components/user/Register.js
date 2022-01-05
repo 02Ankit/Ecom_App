@@ -17,7 +17,7 @@ const Register = () => {
         password: '',
     })
 
-    const {name, email, password} = user
+    const {name, email, password} = user;
     const[avatar, setAvatar] = useState('')
     const[avatarPreview, setAvatarPreview ] = useState('/images/default_avatar.jpg')
 
@@ -46,6 +46,7 @@ const Register = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
+
         const formData = new FormData();
         formData.set('name', name);
         formData.set('email', email);
@@ -144,7 +145,7 @@ const Register = () => {
               id="register_button"
               type="submit"
               className="btn btn-block py-3"
-              disabled = { loading? true : false}
+              disabled = { loading ? true : false}
             >
               REGISTER
             </button>
