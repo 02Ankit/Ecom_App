@@ -32,12 +32,19 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
 exports.getProducts = catchAsyncErrors(async (req, res, next) => {
 	
 	const resPerPage =4;
-	const productCount = await Product.countDocuments() 
+	const productCount = await Product.countDocuments();
+
+	
 
 	const apiFeatures = new APIFeatures(Product.find(), req.query)
-						.search().filter().pagination(resPerPage).sort()
+						.search().filter()
 
-	const products = await apiFeatures.query;
+		let products = await apiFeatures.query;
+		let filteredProductsCount = products.length;
+
+		apiFeatures.pagination(resPerPage)
+		products = await apiFeatures.query.clone() 
+
 	//await bcz data are coming from server 
 	// const products = await Product.find();
 
@@ -45,7 +52,10 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
 		success: true,
 		// count:  products.length,
 		productCount,
+		resPerPage,
+		filteredProductsCount,
 		products
+		
 	})
 })
 
@@ -98,30 +108,54 @@ exports.getSingleProduct = catchAsyncErrors(async (req, res, next) => {
   })
 
 
-  //Delete Products  = /api/v1/admin/product/:id
+//   //Delete Products  = /api/v1/admin/product/:id
 
-  exports.deleteProduct = async (req, res, next) => {
+//   exports.deleteProduct = async (req, res, next) => {
 
-	const product = await Product.findById(req.params.id);
+// 	const product = await Product.findById(req.params.id);
 
-		if(!product){
+// 		if(!product){
 
-			return res.status(404).json({
-				success: false,
-				message: 'Product Not Found'
-			})
+// 			return res.status(404).json({
+// 				success: false,
+// 				message: 'Product Not Found'
+// 			})
 
-	}
+// 	}
 
-	await product.remove();
+// 	await product.remove();
 
-	res.status(200).json({
-		success: true,
-		message: 'Product is Successfully Deleted'
-	})
+// 	res.status(200).json({
+// 		success: true,
+// 		message: 'Product is Successfully Deleted'
+		
+// 	})
 
-  }
+//   }
 
+
+// Delete Product   =>   /api/v1/admin/product/:id
+exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
+
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+        return next(new ErrorHandler('Product not found', 404));
+    }
+
+    // Deleting images associated with the product
+    for (let i = 0; i < product.images.length; i++) {
+        const result = await cloudinary.v2.uploader.destroy(product.images[i].public_id)
+    }
+
+    await product.remove();
+
+    res.status(200).json({
+        success: true,
+        message: 'Product is deleted.'
+    })
+
+})
 
 
 exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
