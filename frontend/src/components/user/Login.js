@@ -4,28 +4,30 @@ import { Link } from 'react-router-dom'
 import Loader from '../layout/Loader'
 import MetaData from '../layout/MetaData'
 import  { useNavigate }  from 'react-router-dom'
-
+import { useLocation } from 'react-router-dom'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { login, clearErrors } from '../../actions/userActions'
 
 const Login = () => {
 
+    let navigate = useNavigate();
+    let location = useLocation();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const alert = useAlert();
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const { isAuthenticated, error, loading } = useSelector(state => state.auth);
 
-    // const redirect = location.search ? location.search.split('=')[1] : '/'
+    const redirect = location.search ? `/${location.search.split('=')[1]}` : '/'
 
     useEffect(() => {
 
         if (isAuthenticated) {
-            navigate('/')
+            navigate(`${redirect}`)
         }
 
         if (error) {

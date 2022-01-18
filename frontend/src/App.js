@@ -18,6 +18,7 @@ import ProtectedRoute from './components/route/ProtectedRoute'
 import { loadUser } from './actions/userActions'
 import store from './store'
 import Cart from "./components/cart/Cart";
+import Shipping from './components/cart/Shipping'
 import { useEffect } from 'react';
 import { useSelector } from "react-redux";
 
@@ -43,6 +44,7 @@ useEffect(() => {
 
             <Route  path="/product/:id" element={< ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/shipping" element={<ProtectedRoute> < Shipping /> </ProtectedRoute>} />
             <Route  path ="/login" element={< Login />} />
             <Route  path ="/register" element={< Register />} />
             <Route path="/my_profile" element={<ProtectedRoute> < Profile /></ProtectedRoute>} />

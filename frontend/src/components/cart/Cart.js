@@ -1,21 +1,27 @@
-import React, { Fragment } from "react";
+import  { Fragment } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import MetaData from "../layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, removeItemFromCart } from "../../actions/cartActions";
 import { useNavigate } from "react-router-dom";
+
 const Cart = () => {
+
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
-  const { cartItems } = useSelector((state) => state.cart);
+
+  const { cartItems } = useSelector(state => state.cart)
+  
   const removeCartItemHandler = (id) => {
-    dispatch(removeItemFromCart(id));
-  };
+    dispatch(removeItemFromCart(id))
+  }
   const increaseQty = (id, quantity, stock) => {
     const newQty = quantity + 1;
     if (newQty > stock) return;
-    dispatch(addItemToCart(id, newQty));
-  };
+    dispatch(addItemToCart(id, newQty))
+  }
   const decreaseQty = (id, quantity) => {
     const newQty = quantity - 1;
     if (newQty <= 0) return;
@@ -27,9 +33,9 @@ const Cart = () => {
   return (
     <Fragment>
       <MetaData title={"Your Cart"} />
-      {cartItems.length === 0 ? (
+      {cartItems.length === 0 ? 
         <h2 className="mt-5">Your Cart is Empty</h2>
-      ) : (
+       : (
         <Fragment>
           <h2 className="mt-5">
             Your Cart: <b>{cartItems.length} items</b>
@@ -37,7 +43,7 @@ const Cart = () => {
 
           <div className="row d-flex justify-content-between">
             <div className="col-12 col-lg-8">
-              {cartItems.map((item) => (
+              {cartItems.map(item => (
                 <Fragment>
                   <hr />
                   <div className="cart-item" key={item.product}>
