@@ -9,6 +9,15 @@ import { productsReducer, productDetailsReducer } from './reducers/productReduce
 import { authReducer, userReducer, forgotPasswordReducer, allUsersReducer, userDetailsReducer } from './reducers/userReducers'
 
 import { cartReducer } from './reducers/cartReducers'
+
+import {
+	newOrderReducer,
+	myOrdersReducer,
+	orderDetailsReducer,
+	allOrdersReducer,
+	orderReducer,
+  } from "./reducers/orderReducers";
+
 import { json } from 'body-parser';
 
 const reducer = combineReducers({
@@ -20,7 +29,8 @@ const reducer = combineReducers({
     allUsers: allUsersReducer,
 	userDetails: userDetailsReducer,
     forgotPassword: forgotPasswordReducer,
-	cart: cartReducer
+	cart: cartReducer,
+	newOrder: newOrderReducer
 
 })
 

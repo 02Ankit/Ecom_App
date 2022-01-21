@@ -7,6 +7,7 @@ import CheckoutSteps from './CheckoutSteps'
 import { useDispatch, useSelector } from 'react-redux'
 import { saveShippingInfo } from '../../actions/cartActions'
 import { useNavigate } from "react-router-dom";
+
 const Shipping = () => {
 
     const countriesList = Object.values(countries)
@@ -26,7 +27,7 @@ const Shipping = () => {
         e.preventDefault()
 
         dispatch(saveShippingInfo({ address, city, phoneNo, postalCode, country }))
-        navigate('/confirm')
+        navigate(`/order/confirm`)
     }
 
     return (
